@@ -10,7 +10,8 @@ class DummyAppIntegrationTest < ActionController::TestCase
   # compiled html import as a json response. We test against that here.
   test "the test files should get compiled and concatenated" do
     get :assets
-    assert_equal @response.body, <<-EOS.strip_heredoc
+
+    expected_body = <<-EOS.strip_heredoc
       <script>(function() {
         var hello;
         hello = "world";
@@ -26,7 +27,7 @@ class DummyAppIntegrationTest < ActionController::TestCase
       <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <p>Test external js</p>
       <p>Test simple import</p>
-      <style>p {
+      <style shim-shadowdom="">p {
         color: red;
       }
       </style>
@@ -45,5 +46,7 @@ class DummyAppIntegrationTest < ActionController::TestCase
         </template>
       </polymer-element>
     EOS
+
+    assert_equal expected_body, @response.body
   end
 end

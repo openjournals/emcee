@@ -17,6 +17,7 @@ module Emcee
     def replace(type, new_content)
       new_node = Nokogiri::XML::Node.new(type, document)
       new_node.content = new_content
+      new_node.set_attribute(shim, "") if shim
       @parser_node.replace(new_node)
     end
 
@@ -28,6 +29,10 @@ module Emcee
 
     def src
       @parser_node.attribute("src")
+    end
+
+    def shim
+      @parser_node.attribute("no-shim").try!(:name) || @parser_node.attribute("shim-shadowdom").try!(:name)
     end
 
     def document
