@@ -23,7 +23,7 @@ module Emcee
         resolver = Emcee::Resolver.new(context)
         Emcee::Processors::ImportProcessor.new(resolver).process(doc)
         Emcee::Processors::ScriptProcessor.new(resolver).process(doc)
-        Emcee::Processors::StylesheetProcessor.new(resolver).process(doc)
+        # Emcee::Processors::StylesheetProcessor.new(resolver).process(doc)
         doc.to_s
       end
     end
